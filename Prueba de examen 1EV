@@ -1,0 +1,38 @@
+1.1-    Soy el hijo dejo de fortuna 10
+	Soy el padre dejo de fortuna 30
+	Soy el ebuelo dejo de fortuna -10
+
+1.2-    Si, siempre se produce la misma salida por la utilización de wait que espera al resto de procesos para ser ejecutado.
+
+1.3-	No, no se contempla en el case la opción -1, que es el caso en que se genera un error en el fork. 
+
+2- Realiza un programa en lenguaje C que mediante pipes realice una comunicación entre padre e hijo. El hijo debe enviar al mensaje “He aprobado PSP papá”. El padre debe recibir el mensaje y mostrarlo. Se requiere control de errores y comentarios en código.
+int main() {
+    int fd[2];//Creo vector entero
+    char buffer[30];//Capacidad del buffer
+    pid_t pid;//Se declara un pid
+
+pipe (fd);//Creo pipe 
+pid=fork();//Creo proceso
+	switch(pid)
+	{
+	case -1:
+	printf("no se ha podido crear el hijo\n");
+	exit(-1);
+	break;
+	case 0:
+	close (fd[0]); //cierra el descriptor de salida
+	printf("el hijo escribe en el pipe....\n");
+	write (fd[1],"He aprobado PSP papa", 10);
+	break;
+	default:
+	wait(NULL);
+	close (fd[1]); //cierra el descriptor de entrada
+	printf("el padre lee el pipe...\n");
+	read (fd[0], buffer ,10);
+	printf ("\tMensaje leido:%s\n", buffer);
+	break;
+
+	}
+}
+

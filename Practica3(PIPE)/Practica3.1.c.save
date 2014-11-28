@@ -1,0 +1,69 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+
+int main() {
+    int fd[2];
+    char saludoHijo[]="Hello dad.\0";
+    char saludoPadre[]="Hello son\0";
+    char buffer[80];
+    pid_t pid;
+    int respuesta;
+
+printf("Pulsa 1 para comunicación Padre/Hijo\n");
+printf("Pulsa 2 para comunicación Hijo/Hijo\n");
+scanf("%d", &respuesta);
+
+if(respuesta==1){
+pipe (fd);
+pid=fork();
+        switch(pid)
+        {
+        case -1://ERROR
+        printf("no se ha podido crear el hijo\n");
+        exit(-1);
+        case 0: //hijo
+	close(fd[0]);
+	write(fd[1], saludoHijo, strlen(saludoHijo));
+        printf("El hijo le dice al padre.%s\n",saludoHijo);
+        break;
+        default: //padre
+	wait(NULL);
+        close (fd[1]);
+	read(fd[0], buffer, sizeof(buffer));
+        printf("El padre lee del hijo.%s\n",saludoHijo);
+        break;
+
+        }
+
+}
+else{
+
+pipe (fd);
+pid=fork();
+	switch(pid)
+	{
+	case -1:
+	printf("no se ha podido crear el hijo\n");
+	exit(-1);
+	break;
+	case 0:
+	wait(NULL);
+	printf("El hijo lee del padre\n");
+	close(fd[1]);
+	read (fd[0],"hola papi", 10);
+	break;
+	default:
+	printf("El padre escribe al hijo\n");
+	close(fd[0]);
+	write (fd[1wait(NULL);], buffer ,10);
+	printf ("\tMensaje leido:%s\n", buffer);
+	break;
+
+	}
+
+
+    }
+
+}
