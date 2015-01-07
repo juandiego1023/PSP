@@ -1,0 +1,47 @@
+
+public class Cuenta {
+	//atributos
+	private int saldo;
+	private boolean disponible=false;  // inicialmente vacia
+
+	//metodos
+	//sacar
+	public synchronized int sacar(){
+		while (disponible==false) { //si esta vacia
+			try {
+				wait();
+			}catch (InterruptedException e){};
+		
+		}	
+		disponible=false;
+		notifyAll();
+		return saldo; //no hay numero 
+	}
+
+	public synchronized void meter(int valor){
+		while (disponible==true) { //si no esta vacia
+			try {
+				wait();
+			}catch (InterruptedException e){};
+		
+		}
+		saldo=valor;
+		disponible=true;
+		notifyAll();
+		
+	}
+	
+	public synchronized void leer(int valor){
+		while (disponible==true) { //si no esta vacia
+			try {
+				wait();
+			}catch (InterruptedException e){};
+		
+		}
+		saldo=valor;
+		disponible=true;
+		notifyAll();
+		
+	}
+
+}

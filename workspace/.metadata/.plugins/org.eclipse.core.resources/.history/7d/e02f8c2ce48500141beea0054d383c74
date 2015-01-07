@@ -1,0 +1,15 @@
+
+public class Main {
+
+	public static void main(String[] args) {
+		Cuenta cuenta=new Cuenta();
+		Persona p=new Persona(cuenta,1);
+		Persona p2=new Persona(cuenta,1);
+		p.start();
+		p2.start();	
+		
+	}
+	
+	
+	
+}

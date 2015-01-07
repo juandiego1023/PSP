@@ -1,0 +1,30 @@
+import java.util.Random;
+
+
+public class Persona extends Thread{
+
+	private Cuenta cuenta;
+	private int n;
+
+	public Persona (Cuenta c, int n){
+		cuenta=c;
+		this.n=n;
+	}
+	
+	
+	public void run(){
+
+		
+			    Random r = new Random();
+			    int pasta = r.nextInt(6)+1;
+
+				cuenta.meter(pasta); //pone el número
+				System.out.println("Ingresa: "+pasta);
+	 			try {
+					sleep(100);
+				}catch (InterruptedException e){}
+			
+		}
+	
+	
+}

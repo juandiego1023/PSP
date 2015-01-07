@@ -1,0 +1,13 @@
+public class Produc_Consum{
+	public static void main(String[] args) {
+		Cola cola=new Cola();
+		Pong p=new Pong(cola,1);
+		Ping c=new Ping(cola,1);
+		p.start();
+		c.start();	
+		
+	}
+	
+
+
+}

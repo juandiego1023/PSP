@@ -1,0 +1,43 @@
+import java.util.Random;
+
+
+public class Persona extends Thread{
+
+	private Cuenta cuenta;
+	private String nombre;
+
+	public Persona (Cuenta c, String nombre){
+		cuenta=c;
+		this.nombre=nombre;
+	}
+	
+	
+	public void run(){
+
+		
+			    Random r = new Random();
+			    int pasta = r.nextInt(100)+1;
+
+				cuenta.meter(pasta); //ingresa
+				System.out.println(nombre+" Ingresa: "+pasta);
+	 			try {
+					sleep(100);
+				}catch (InterruptedException e){}
+	 			
+	 			
+	 			
+	 			Random r2 = new Random();
+			    int pasta2 = r.nextInt(100)+1;
+	 			cuenta.sacar(); //
+				System.out.println("Reintegro: "+pasta2);
+	 			try {
+					sleep(100);
+				}catch (InterruptedException e){}
+	 			
+	 			
+	 			cuenta.leer();
+			
+		}
+	
+	
+}

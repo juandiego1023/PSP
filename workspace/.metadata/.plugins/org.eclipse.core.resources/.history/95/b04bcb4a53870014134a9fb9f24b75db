@@ -1,0 +1,45 @@
+
+public class Cuenta {
+	//atributos
+	private int saldo=50;
+	private boolean disponible=false;  // inicialmente vacia
+
+	//metodos
+	//sacar
+
+
+	public synchronized int meter(int valor){
+		while (disponible==true) { //si no esta vacia
+			try {
+				wait();
+			}catch (InterruptedException e){};
+		
+		}
+		saldo=saldo+valor;
+		disponible=true;
+		notifyAll();
+		
+		return saldo;
+	}
+	
+	public synchronized int sacar(int valor){
+		if((saldo-valor)<0) { //si esta vacia
+			System.out.println("No hay saldo suficiente");
+			try {
+				wait();
+			}catch (InterruptedException e){};
+		
+		}	
+		disponible=false;
+		notifyAll();
+		saldo=saldo-valor;
+		
+		return saldo; 
+	}
+	
+	public int leer(){	
+		return saldo;
+	}
+	
+
+}

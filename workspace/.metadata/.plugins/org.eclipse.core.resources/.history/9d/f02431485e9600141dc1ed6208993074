@@ -1,0 +1,19 @@
+
+public class Coche extends Thread{
+	
+	//propiedades	
+	private int c=0; //vble contador
+	private boolean stopHilo=false; //boolean parar contador hilo
+
+public int getContador(){
+	return c;
+	}
+
+public void pararHilo(){
+	stopHilo=true;
+	}
+public void run(){
+	while (!stopHilo) c++;
+	}
+
+}

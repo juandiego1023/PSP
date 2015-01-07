@@ -1,0 +1,42 @@
+
+public class Cuenta {
+	//atributos
+	private int saldo=50;
+	private boolean disponible=false;  // inicialmente vacia
+
+	//metodos
+	//sacar
+	public synchronized int sacar(int valor){
+		while (valor>saldo) { //si esta vacia
+			try {
+				wait();
+			}catch (InterruptedException e){};
+		
+		}	
+		disponible=false;
+		notifyAll();
+		saldo=saldo-valor;
+		System.out.println("Saldo: "+saldo);
+		return saldo; 
+	}
+
+	public synchronized int meter(int valor){
+		while (disponible==true) { //si no esta vacia
+			try {
+				wait();
+			}catch (InterruptedException e){};
+		
+		}
+		saldo=saldo+valor;
+		disponible=true;
+		notifyAll();
+		System.out.println("Saldo: "+saldo);
+		return saldo;
+	}
+	
+	/*public synchronized void leer(){	
+		System.out.println("Saldo: "+saldo);
+	}
+	*/
+
+}

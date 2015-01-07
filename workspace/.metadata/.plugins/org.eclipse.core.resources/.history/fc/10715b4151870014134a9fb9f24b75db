@@ -1,0 +1,16 @@
+
+public class Main {
+
+	public static void main(String[] args) {
+		Cuenta cuenta=new Cuenta();
+		Persona roberto=new Persona(cuenta,"roberto");
+		Persona maria=new Persona(cuenta,"maria");
+		
+		roberto.start();
+		maria.start();	
+		
+	}
+	
+	
+	
+}

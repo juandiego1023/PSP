@@ -1,0 +1,13 @@
+
+public class Main {
+
+	public static void main(String[] args) {
+		Cuenta cuenta=new Cuenta();
+		Persona p=new Persona(cuenta,1);
+		Productor c=new Productor(cola,1);
+		p.start();
+		c.start();	
+		
+	}
+	
+}
